@@ -7,6 +7,7 @@ class SignInButtonBuilder extends StatelessWidget {
   /// Icon can be used to define the signin method
   /// User can use Flutter built-in Icons or font-awesome flutter's Icon
   final IconData? icon;
+  final Widget? textWidget;
 
   /// Override the icon section with a image logo
   /// For example, Google requires a colorized logo,
@@ -24,7 +25,7 @@ class SignInButtonBuilder extends StatelessWidget {
   final double fontSize;
 
   /// backgroundColor is required but textColor is default to `Colors.white`
-  /// splashColor is default to `Colors.white30`
+  /// splashColor is defalt to `Colors.white30`
   final Color textColor,
       iconColor,
       backgroundColor,
@@ -42,7 +43,7 @@ class SignInButtonBuilder extends StatelessWidget {
   /// on material button, hence, comment out.
   final ShapeBorder? shape;
 
-  /// elevation has default value of 2.0
+  /// elevation has defalt value of 2.0
   final double elevation;
 
   /// the height of the button
@@ -52,28 +53,29 @@ class SignInButtonBuilder extends StatelessWidget {
   final double? width;
 
   /// The constructor is self-explanatory.
-  const SignInButtonBuilder({
-    Key? key,
-    required this.backgroundColor,
-    required this.onPressed,
-    required this.text,
-    this.icon,
-    this.image,
-    this.fontSize = 14.0,
-    this.textColor = Colors.white,
-    this.iconColor = Colors.white,
-    this.splashColor = Colors.white30,
-    this.highlightColor = Colors.white30,
-    this.padding,
-    this.innerPadding,
-    this.mini = false,
-    this.elevation = 2.0,
-    this.shape,
-    this.height,
-    this.width,
-  }) : super(key: key);
+  const SignInButtonBuilder(
+      // ignore: avoid_unused_constructor_parameters
+      {Key? key,
+      required this.backgroundColor,
+      required this.onPressed,
+      required this.text,
+      this.icon,
+      this.image,
+      this.fontSize = 14.0,
+      this.textColor = Colors.white,
+      this.iconColor = Colors.white,
+      this.splashColor = Colors.white30,
+      this.highlightColor = Colors.white30,
+      this.padding,
+      this.innerPadding,
+      this.mini = false,
+      this.elevation = 2.0,
+      this.shape,
+      this.height,
+      this.width,
+      this.textWidget});
 
-  /// The build function will be help user to build the signin button widget.
+  /// The build funtion will be help user to build the signin button widget.
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
@@ -115,14 +117,15 @@ class SignInButtonBuilder extends StatelessWidget {
                   ),
               child: _getIconOrImage(),
             ),
-            Text(
-              text,
-              style: TextStyle(
-                color: textColor,
-                fontSize: fontSize,
-                backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
-              ),
-            ),
+            textWidget ??
+                Text(
+                  text,
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: fontSize,
+                    backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+                  ),
+                ),
           ],
         ),
       ),

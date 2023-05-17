@@ -31,26 +31,29 @@ class SignInButton extends StatelessWidget {
 
   // overrides the default button elevation
   final double elevation;
+  final double? width;
+
+  final Widget? textWidget;
 
   /// The constructor is fairly self-explanatory.
   const SignInButton(
     this.button, {
-    Key? key,
     required this.onPressed,
     this.mini = false,
     this.padding = const EdgeInsets.all(0),
     this.shape,
     this.text,
+    this.textWidget,
     this.elevation = 2.0,
-  })  : assert(
+    this.width,
+  }) : assert(
             mini != true ||
                 !(button == Buttons.Google ||
                     button == Buttons.GoogleDark ||
                     button == Buttons.FacebookNew),
-            'Google and FacebookNew buttons do not support mini mode'),
-        super(key: key);
+            'Google and FacebookNew buttons do not support mini mode');
 
-  /// The build function is used to build the widget which will switch to
+  /// The build funtion is used to build the widget which will switch to
   /// desired widget based on the enum class `Buttons`
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,9 @@ class SignInButton extends StatelessWidget {
       case Buttons.Google:
       case Buttons.GoogleDark:
         return SignInButtonBuilder(
+          textWidget: textWidget,
           elevation: elevation,
+          width: width,
           key: const ValueKey('Google'),
           text: text ?? 'Sign in with Google',
           textColor: button == Buttons.Google
@@ -67,7 +72,7 @@ class SignInButton extends StatelessWidget {
           image: Container(
             margin: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
+              borderRadius: BorderRadius.circular(20.0),
               child: Image(
                 image: AssetImage(
                   button == Buttons.Google
@@ -75,7 +80,7 @@ class SignInButton extends StatelessWidget {
                       : 'assets/logos/google_dark.png',
                   package: 'flutter_signin_button',
                 ),
-                height: 36.0,
+                height: 48.0,
               ),
             ),
           ),
@@ -86,7 +91,7 @@ class SignInButton extends StatelessWidget {
           padding: padding,
           innerPadding: const EdgeInsets.all(0),
           shape: shape,
-          height: 36.0,
+          height: 48.0,
         );
       case Buttons.Facebook:
       case Buttons.FacebookNew:
@@ -132,9 +137,11 @@ class SignInButton extends StatelessWidget {
       case Buttons.Apple:
       case Buttons.AppleDark:
         return SignInButtonBuilder(
+          textWidget: textWidget,
           elevation: elevation,
           key: const ValueKey('Apple'),
           mini: mini,
+          width: width,
           text: text ?? 'Sign in with Apple',
           textColor: button == Buttons.Apple ? Colors.black : Colors.white,
           icon: FontAwesomeIcons.apple,
